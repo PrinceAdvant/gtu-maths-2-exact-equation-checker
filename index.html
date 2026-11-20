@@ -1,0 +1,46 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>GTU Maths 2 exact differential equation checker: My = Nx, then the implicit solution F = C</title>
+<meta name="description" content="GTU Hero&#x27;s Maths 2 guide lists exact differential equations among the first-order methods to practise for BE Mathematics 2, next to other solution met">
+<style>body{font-family:system-ui,sans-serif;max-width:720px;margin:2rem auto;padding:0 1rem;line-height:1.5}input,textarea,select{margin:.3rem 0;padding:.3rem;width:min(100%,360px);box-sizing:border-box}textarea{width:min(100%,520px);min-height:6rem;font-family:ui-monospace,monospace}#out{font-weight:bold;margin-top:1rem;white-space:pre-wrap;font-family:ui-monospace,monospace}</style></head><body>
+<h1>GTU Maths 2 exact differential equation checker: My = Nx, then the implicit solution F = C</h1>
+<p>GTU Hero&#x27;s Maths 2 guide lists exact differential equations among the first-order methods to practise for BE Mathematics 2, next to other solution methods and initial-value problems where they are prescribed. Ye page My aur Nx compare karta hai for a quadratic M dx + N dy = 0. If the equation is exact, it writes the implicit solution with exact fractions. Practice coefficients are my own, not from a GTU paper. Pehle My = Nx likho, phir integrate karna.</p>
+<h2>Tool</h2>
+<p>Enter integer coefficients of M and N in M dx + N dy = 0. Blank is 0. Terms go up to degree 2.</p>
+<p>M = a00 + a10 x + a01 y + a20 x<sup>2</sup> + a11 x y + a02 y<sup>2</sup></p>
+<p>N = b00 + b10 x + b01 y + b20 x<sup>2</sup> + b11 x y + b02 y<sup>2</sup></p>
+<label>a00 <input id="a00" value="0"></label>
+<label>a10 <input id="a10" value="2"></label>
+<label>a01 <input id="a01" value="1"></label>
+<label>a20 <input id="a20" value="0"></label>
+<label>a11 <input id="a11" value="0"></label>
+<label>a02 <input id="a02" value="0"></label><br>
+<label>b00 <input id="b00" value="0"></label>
+<label>b10 <input id="b10" value="1"></label>
+<label>b01 <input id="b01" value="2"></label>
+<label>b20 <input id="b20" value="0"></label>
+<label>b11 <input id="b11" value="0"></label>
+<label>b02 <input id="b02" value="0"></label><br>
+<p>Default is (2x + y) dx + (x + 2y) dy = 0, which is exact, with x^2 + xy + y^2 = C.</p>
+<button type="button" onclick="go()">Show</button>
+<div id="out"></div>
+<h2>Facts used</h2>
+<ul><li>M(x, y) dx + N(x, y) dy = 0 is exact when My = Nx identically (the mixed partials of the potential agree).</li><li>If it is exact, integrate M with respect to x, treating y as constant, then fix the leftover function of y by using F_y = N. The solution is F(x, y) = C.</li><li>If My is not equal to Nx, the equation is not exact. Do not invent a potential. An integrating factor, or another first-order method from your syllabus, may still apply.</li><li>Default practice equation: (2x + y) dx + (x + 2y) dy = 0. My = 1 = Nx, so it is exact, and x^2 + xy + y^2 = C.</li><li>These are practice priorities from the guide, not a promise that the same equation will appear. Confirm exact equations are in your own Maths 2 code (the guide discusses BE02000011 and other codes).</li></ul>
+<h2>Galti mat karna</h2>
+<ul><li>In the exam, write My and Nx explicitly before you integrate. The potential alone is not the full method.</li><li>Keep fractions exact (x^2, not 2x^2 / 2 left unsimplified, and 1/2 coefficients shown clearly).</li><li>A numerical check at one point is not a proof that My = Nx identically.</li><li>If the question is an IVP, substitute the given point into F = C to find C.</li></ul>
+<p>Which Maths 2 topics to practise and how to spot repeated question types: <a href="https://gtuhero.com/blogs/gtu-maths-2-papers-pyqs-repeated-sums">GTU Hero</a> (GTU Hero is my project).</p>
+<script src="calc.js"></script>
+<script>
+function go(){
+const keysA = ['a00','a10','a01','a20','a11','a02'];
+  const keysB = ['b00','b10','b01','b20','b11','b02'];
+  let out;
+  try {
+    const a = {}, b = {};
+    keysA.forEach(k => a[k] = F.num(document.getElementById(k).value, k));
+    keysB.forEach(k => b[k] = F.num(document.getElementById(k).value, k));
+    out = F.format(F.exact(a, b));
+  } catch (e) { out = 'Check your input: ' + e.message; }
+  document.getElementById('out').textContent = out;
+}
+go();
+</script>
+</body></html>
